@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instal·la - Pistes Paraulògic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .step-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        
+        .step-box h3 {
+            display: inline-block;
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        .step-box p {
+            color: #666;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+        
+        .code-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            overflow-x: auto;
+            margin: 15px 0;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+        
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .button:active {
+            transform: scale(0.98);
+        }
+        
+        .button-success {
+            background: #4caf50;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #856404;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .emoji {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+        
+        #success-message {
+            display: none;
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Instal·lació Mòbil</h1>
+        
+        <div class="step-box">
+            <span class="step-number">1</span>
+            <h3>Afegeix aquesta pàgina als favorits</h3>
+            <p>Clica el botó del teu navegador per <strong>afegir als favorits</strong> o <strong>desar a pantalla d'inici</strong>.</p>
+            <p style="margin-top: 10px; font-size: 13px; color: #999;">
+                📱 Android: Menú (⋮) → ⭐ Afegir als favorits<br>
+                🍎 iOS: Botó compartir → Afegir als favorits
+            </p>
+        </div>
+        
+        <div class="step-box">
+            <span class="step-number">2</span>
+            <h3>Copia aquest codi</h3>
+            <p>Prem el botó de sota per copiar el codi automàticament:</p>
+            
+            <div class="code-box" id="bookmarklet-code">javascript:(function(){var s=document.createElement('script');s.src='https://TU-USUARIO.github.io/TU-REPO/content.js?v='+Date.now();document.body.appendChild(s);})();</div>
+            
+            <button class="button" id="copy-button">
+                📋 Copiar codi
+            </button>
+            <div id="success-message">✅ Codi copiat!</div>
+        </div>
+        
+        <div class="step-box">
+            <span class="step-number">3</span>
+            <h3>Edita el favorit que has creat</h3>
+            <p>Ves als teus favorits, troba aquesta pàgina, i <strong>edita l'adreça URL</strong>:</p>
+            <ul style="margin: 15px 0 0 20px; color: #666; line-height: 1.8;">
+                <li>Esborra l'adreça actual</li>
+                <li>Enganxa el codi que has copiat</li>
+                <li>Canvia el nom a: <strong>"Pistes Paraulògic"</strong></li>
+                <li>Desa els canvis</li>
+            </ul>
+        </div>
+        
+        <div class="step-box">
+            <span class="step-number">4</span>
+            <h3>Ja està! Ara pots usar-lo</h3>
+            <p>Cada cop que juguis al Paraulògic:</p>
+            <a href="https://vilaweb.cat/paraulogic/" class="button button-success" target="_blank">
+                🎮 Obre el Paraulògic
+            </a>
+            <p style="margin-top: 15px; text-align: center; color: #666; font-size: 14px;">
+                Després obre <strong>Favorits</strong> → <strong>"Pistes Paraulògic"</strong>
+            </p>
+        </div>
+        
+        <div class="note">
+            <strong>💡 Consell:</strong> Si tens problemes editant el favorit, prova des d'un ordinador. És més fàcil configurar-ho al PC i després sincronitzar els favorits amb el mòbil.
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #e7f3ff; border-radius: 12px; text-align: center;">
+            <p style="color: #0d47a1; font-size: 14px; line-height: 1.6;">
+                ❓ Tens problemes?<br>
+                <a href="index.html" style="color: #667eea; font-weight: bold;">Torna a la pàgina principal</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Botó de copiar
+        document.getElementById('copy-button').addEventListener('click', function() {
+            const code = document.getElementById('bookmarklet-code').textContent;
+            
+            // Intentar copiar al portapapers
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showSuccess();
+                }).catch(() => {
+                    fallbackCopy();
+                });
+            } else {
+                fallbackCopy();
+            }
+            
+            function fallbackCopy() {
+                // Mètode alternatiu per navegadors antics
+                const textarea = document.createElement('textarea');
+                textarea.value = code;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    showSuccess();
+                } catch (err) {
+                    alert('Copia manualment el codi de dalt');
+                }
+                
+                document.body.removeChild(textarea);
+            }
+            
+            function showSuccess() {
+                const msg = document.getElementById('success-message');
+                msg.style.display = 'block';
+                setTimeout(() => {
+                    msg.style.display = 'none';
+                }, 3000);
+            }
+        });
+        
+        // Detectar si és la primera vegada
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('paraulogic-visited')) {
+                // Ja ha estat aquí abans, mostrar missatge diferent
+                const h1 = document.querySelector('h1');
+                h1.innerHTML = '✏️ Edita el Favorit';
+            } else {
+                localStorage.setItem('paraulogic-visited', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
