@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraulògic - Pistes Dinàmiques</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .option-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .option-card.recommended {
+            border-color: #4caf50;
+            background: #f1f8f4;
+        }
+        
+        .option-badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .option-card h3 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+        
+        .option-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .option-card .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        
+        .option-card.recommended .button {
+            background: #4caf50;
+        }
+        
+        .option-card .button:active {
+            transform: scale(0.98);
+        }
+        
+        .features {
+            background: #e7f3ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .features h3 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #555;
+            font-size: 15px;
+        }
+        
+        .feature .emoji {
+            font-size: 20px;
+            margin-right: 12px;
+        }
+        
+        .device-icons {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 32px;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            color: #856404;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Paraulògic amb Pistes</h1>
+        <p class="subtitle">
+            Juga amb pistes dinàmiques que s'actualitzen automàticament mentre trobes paraules
+        </p>
+        
+        <div class="device-icons">
+            💻 📱 🖥️ 📲
+        </div>
+        
+        <h2 style="color: #667eea; margin-bottom: 20px; text-align: center;">Tria com instal·lar-ho:</h2>
+        
+        <div class="option-card recommended">
+            <span class="option-badge">✨ RECOMANAT PER MÒBIL</span>
+            <h3>📱 Instal·lació Guiada</h3>
+            <p>
+                Segueix 4 passos simples amb instruccions clares. 
+                Funciona a <strong>tots els navegadors</strong> mòbils: Chrome, Firefox, Safari, Samsung Internet...
+            </p>
+            <p style="font-size: 13px; color: #999; margin-bottom: 15px;">
+                ⏱️ Temps: 2 minuts · ⭐ Dificultat: Molt fàcil
+            </p>
+            <a href="installa.html" class="button">
+                ➡️ Començar instal·lació
+            </a>
+        </div>
+        
+        <div class="option-card">
+            <h3>💻 Bookmarklet Tradicional</h3>
+            <p>
+                Arrossega un botó als favorits (desktop) o copia l'enllaç (mòbil). 
+                Ideal si ja coneixes com funcionen els bookmarklets.
+            </p>
+            <p style="font-size: 13px; color: #999; margin-bottom: 15px;">
+                ⏱️ Temps: 1 minut (desktop), 3 minuts (mòbil) · ⭐ Dificultat: Mitjana
+            </p>
+            <a href="bookmarklet.html" class="button">
+                📖 Veure instruccions
+            </a>
+        </div>
+        
+        <div class="features">
+            <h3>✨ Què inclou?</h3>
+            <div class="feature">
+                <span class="emoji">📊</span>
+                <span><strong>Graella dinàmica</strong> - Veu quantes paraules queden per lletra i longitud</span>
+            </div>
+            <div class="feature">
+                <span class="emoji">🔤</span>
+                <span><strong>Prefixos i sufixos</strong> - S'actualitzen automàticament</span>
+            </div>
+            <div class="feature">
+                <span class="emoji">✓</span>
+                <span><strong>Validació instantània</strong> - T'avisa si la paraula no és vàlida</span>
+            </div>
+            <div class="feature">
+                <span class="emoji">⭐</span>
+                <span><strong>Tutis i palíndroms</strong> - Detectats automàticament</span>
+            </div>
+            <div class="feature">
+                <span class="emoji">🎨</span>
+                <span><strong>Panell arrossegable</strong> - Col·loca'l on vulguis</span>
+            </div>
+        </div>
+        
+        <div class="note">
+            <strong>💡 Com funciona després?</strong><br>
+            Un cop instal·lat, cada cop que vulguis jugar:
+            <ol style="margin: 10px 0 0 20px;">
+                <li>Obre <strong>vilaweb.cat/paraulogic</strong></li>
+                <li>Clica el marcador <strong>"Pistes Paraulògic"</strong></li>
+                <li>Apareix el panell automàticament! 🎉</li>
+            </ol>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 12px; text-align: center;">
+            <p style="color: #666; font-size: 14px; line-height: 1.6;">
+                Creat amb ❤️ per millorar l'experiència del Paraulògic<br>
+                <a href="https://github.com/ejordana/paraulogic_pistes" style="color: #667eea; text-decoration: none; font-weight: bold;">
+                    Codi font a GitHub
+                </a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
