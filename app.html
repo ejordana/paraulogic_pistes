@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#667eea">
+    <title>Paraulògic amb Pistes</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 10000;
+        }
+        
+        #loading h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        #loading p {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-top: 30px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+        
+        #install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 9999;
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        #install-prompt h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        #install-prompt p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        #install-prompt button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        #install-prompt .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            width: auto;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <h1>📊 Paraulògic</h1>
+        <p>Carregant amb pistes dinàmiques...</p>
+        <div class="spinner"></div>
+    </div>
+    
+    <iframe id="game-frame" src="https://vilaweb.cat/paraulogic/"></iframe>
+    
+    <div id="install-prompt">
+        <button class="close" onclick="closePrompt()">×</button>
+        <h3>📱 Afegeix a l'inici</h3>
+        <p>Desa aquesta pàgina a la pantalla d'inici per accedir ràpidament al Paraulògic amb pistes!</p>
+        <button onclick="installApp()">✨ Afegir a l'inici</button>
+    </div>
+    
+    <script>
+        let deferredPrompt;
+        const iframe = document.getElementById('game-frame');
+        const loading = document.getElementById('loading');
+        
+        // Amagar loading quan carregui l'iframe
+        iframe.addEventListener('load', function() {
+            setTimeout(() => {
+                loading.style.display = 'none';
+                
+                // Intentar injectar el script
+                try {
+                    injectScript();
+                } catch (e) {
+                    console.warn('No es pot injectar directament, usant postMessage');
+                }
+                
+                // Mostrar prompt d'instal·lació després d'uns segons
+                setTimeout(showInstallPrompt, 5000);
+            }, 500);
+        });
+        
+        function injectScript() {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const script = iframeDoc.createElement('script');
+            script.src = 'https://TU-USUARIO.github.io/TU-REPO/content.js?v=' + Date.now();
+            iframeDoc.body.appendChild(script);
+        }
+        
+        // PWA Install
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+        
+        function showInstallPrompt() {
+            // Només mostrar si no està ja instal·lat
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                return; // Ja està instal·lat
+            }
+            
+            // No mostrar si ja ho ha vist
+            if (localStorage.getItem('install-prompt-seen')) {
+                return;
+            }
+            
+            document.getElementById('install-prompt').style.display = 'block';
+        }
+        
+        function closePrompt() {
+            document.getElementById('install-prompt').style.display = 'none';
+            localStorage.setItem('install-prompt-seen', 'true');
+        }
+        
+        async function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    console.log('App instal·lada!');
+                }
+                
+                deferredPrompt = null;
+                closePrompt();
+            } else {
+                // Fallback per iOS o altres que no suporten PWA install
+                alert('Per afegir a l\'inici:\n\n📱 Android: Menú (⋮) → "Afegir a pantalla d\'inici"\n🍎 iOS: Botó compartir → "Afegir a l\'inici"');
+                closePrompt();
+            }
+        }
+        
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw-simple.js')
+                .then(reg => console.log('SW registrat'))
+                .catch(err => console.log('Error SW:', err));
+        }
+    </script>
+</body>
+</html>
